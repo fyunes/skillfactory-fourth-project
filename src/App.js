@@ -1,10 +1,14 @@
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
-      <h1>Checkpoint 4</h1>
+      <NavBar />
+      <h1>SHOP APP</h1>
+      <Footer />
     </div>
   );
-}
+};
 
 export default App;
