@@ -3,9 +3,8 @@ import { Box } from "@chakra-ui/react";
 
 const NavBar = () => {
   return (
-    <Box className="NavBar">
+    <Box className="NavBar"> 
       <Logo />
-      <h3>NAVBAR</h3>     
     </Box>
   );
 };

@@ -2,10 +2,14 @@ import { Box, Image } from "@chakra-ui/react";
 
 const Logo = () => {
   return (
-    <Box>
+    <Box 
+      w='100%'
+      h='100px'
+      justifyContent="center"
+      >
       <Image
-        /* w={{ base: "80px", sm: "100px", md: "100px" }} */
-        src="../images/logo150.png"
+        w="200px"
+        src="https://cdn.discordapp.com/attachments/997992289425182791/1036256575809146880/logo150_horizontal.png"
         alt="Logo"
       />
     </Box>
