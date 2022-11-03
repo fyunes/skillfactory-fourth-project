@@ -8,8 +8,8 @@
 html {
   scroll-behavior: smooth;
 }
-.App {
+/* .App {
   font-family: 'Roboto', sans-serif;
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
-}
+} */
