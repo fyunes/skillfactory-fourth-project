@@ -1,9 +1,12 @@
 import { Box } from "@chakra-ui/react";
+import ItemDetail from "./ItemDetail";
 
-const ItemDetailContainer = () => {
+const ItemDetailContainer = ({id}) => {
   return (
-    <Box className="item-detail-container">
-      <h1>ITEM DETAIL CONTAINER</h1>
+    <Box w="100%" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
+
+      <ItemDetail id={id}/>
+      
     </Box>
   );
 };

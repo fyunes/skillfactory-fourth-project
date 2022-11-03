@@ -14,7 +14,7 @@ const App = () => {
       minH="100vh"
       bg="linear-gradient(to top, #f7faff, #f7faff, #f6faff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)"
       maxW="100vw"
-      fontFamily={`'Roboto', 'sans-serif'`}
+      fontFamily={`'Lato', 'sans-serif'`}
       color='gray.900'
     >
       <Grid
