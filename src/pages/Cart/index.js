@@ -60,6 +60,7 @@ const Cart = () => {
             <Box
               display="flex"
               justifyContent="space-between"
+              borderRadius={10}
               alignItems="center"
               borderWidth={1}
               px={5}
@@ -85,11 +86,27 @@ const Cart = () => {
                   src={product.image}
                 />
               </Box>
-              <Box>
-                <Text fontWeight="700">{product.title}</Text>
-                <Text>Product ID: {product.id}</Text>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+                gap={2}
+              >
+                <Text fontSize="lg" fontWeight="700">
+                  {product.title}
+                </Text>
+                <Text>Product ID:</Text>
+                <Text>{product.id}</Text>
               </Box>
-              <Text>{product.color}</Text>
+              <Box display="flex" flexDirection="column" alignItems="center">
+                <Text fontWeight="bold">Color</Text>
+                <Text>
+                  {product.color[0]
+                    .toUpperCase()
+                    .concat(product.color.substring(1))}
+                </Text>
+              </Box>
               <NumberInput
                 mb={3}
                 size="sm"
@@ -106,6 +123,15 @@ const Cart = () => {
                   <NumberDecrementStepper />
                 </NumberInputStepper>
               </NumberInput>
+              <Box
+                display="flex"
+                flexDirection="column"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <Text fontWeight="bold">Total</Text>
+                <Text>$ {(product.price * product.count).toFixed(2)}</Text>
+              </Box>
               <Button
                 onClick={() => removeById(product.id)}
                 colorScheme="orange"

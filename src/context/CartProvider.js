@@ -17,7 +17,7 @@ const CartProvider = ({ children }) => {
       let product = { ...item, count };
       setCart([...cart, product]);
     }
-  };
+};
 
   const updateCart = (id, newCount) => {
     if (cart.some((element) => element.id === id)) {

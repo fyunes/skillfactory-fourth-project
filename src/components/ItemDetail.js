@@ -32,9 +32,8 @@ const ItemDetail = ({ id }) => {
   };
 
   useEffect(() => {
-    getProduct(id).then((data) => setProduct({...data, id: id}));
+    getProduct(id).then((data) => setProduct({ ...data, id: id }));
   }, [id]);
-
 
   return product ? (
     <Stack direction="row" width="60%" py={5} borderRadius={4} h="55vh">
@@ -64,7 +63,8 @@ const ItemDetail = ({ id }) => {
           </Tag>
           <Text>
             {" "}
-            <b>Color: </b> {product.color}
+            <b>Color: </b>{" "}
+            {product.color[0].toUpperCase().concat(product.color.substring(1))}
           </Text>
           <Text fontSize="3xl" fontWeight="700">
             ${product.price}
