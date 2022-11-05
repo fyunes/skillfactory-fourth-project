@@ -1,4 +1,5 @@
 import NavBar from "./components/NavBar";
+import React from "react";
 import Footer from "./components/Footer";
 import { Box } from "@chakra-ui/react";
 import { Grid, GridItem } from "@chakra-ui/react";
@@ -6,16 +7,17 @@ import Home from "./pages/Home";
 import { Routes, Route } from "react-router-dom";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
 
 const App = () => {
   return (
     <Box
       className="App"
+      maxW="100vw"
       minH="100vh"
       bg="linear-gradient(to top, #f7faff, #f7faff, #f6faff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)"
-      maxW="100vw"
       fontFamily={`'Lato', 'sans-serif'`}
-      color='gray.900'
+      color="gray.900"
     >
       <Grid
         templateAreas={`'navbar'
@@ -36,6 +38,7 @@ const App = () => {
             <Route path="/products" element={<Products title="Products" />} />
             <Route path="/products/:id" element={<ProductDetail />} />
             <Route path="/" element={<Home title="Shop" />} />
+            <Route path="/cart" element={<Cart title="Cart" />} />
           </Routes>
         </GridItem>
         <GridItem bg="red.100" area={"footer"}>
