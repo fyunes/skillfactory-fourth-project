@@ -5,12 +5,15 @@ import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme";
 import "./styles/style.css";
 import App from "./App";
+import CartProvider from "./context/CartProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter> 
+  <BrowserRouter>
     <ChakraProvider theme={theme}>
-      <App />
+      <CartProvider>
+        <App />
+      </CartProvider>
     </ChakraProvider>
   </BrowserRouter>
 );

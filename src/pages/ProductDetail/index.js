@@ -6,7 +6,6 @@ const ProductDetail = () => {
 
   return (
     <>
-      <h1>{id}</h1>
       <ItemDetailContainer id={id} />
     </>
   );
