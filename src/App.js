@@ -1,13 +1,13 @@
-import NavBar from "./components/NavBar";
 import React from "react";
+import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import { Box } from "@chakra-ui/react";
-import { Grid, GridItem } from "@chakra-ui/react";
 import Home from "./pages/Home";
-import { Routes, Route } from "react-router-dom";
+import Cart from "./pages/Cart";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
-import Cart from "./pages/Cart";
+import { Box } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
+import { Routes, Route } from "react-router-dom";
 
 const App = () => {
   return (
@@ -20,19 +20,26 @@ const App = () => {
       color="gray.900"
     >
       <Grid
-        templateAreas={`'navbar'
-                        'main'
-                        'footer'`}
+        templateAreas={`
+          'navbar'
+          'main'
+          'footer'
+          `}
         gridTemplateRows={{
-          base: "100px auto 100px",
-          sm: "150px auto 150px",
+          base: "100px auto auto",
+          md: "150px auto 150px",
         }}
-        gridTemplateColumns={"1fr"}
+        gridTemplateColumns="1fr"
       >
-        <GridItem area={"navbar"}>
+        <GridItem area={"navbar"}
+          display='flex' alignItems='center' justifyContent='center'
+        >
           <NavBar />
         </GridItem>
-        <GridItem area={"main"}>
+        <GridItem area={"main"}
+          mt={10} mb={10}
+          display='flex' justifyContent='center'
+        >
           <Routes>
             <Route path="/" element={<Home title="Shop" />} />
             <Route path="/products" element={<Products title="Products" />} />
@@ -41,7 +48,10 @@ const App = () => {
             <Route path="/cart" element={<Cart title="Cart" />} />
           </Routes>
         </GridItem>
-        <GridItem bg="red.100" area={"footer"}>
+        <GridItem area={"footer"} 
+          display='flex' alignItems='center' justifyContent='center'
+          bg="gray.100"
+          >
           <Footer />
         </GridItem>
       </Grid>

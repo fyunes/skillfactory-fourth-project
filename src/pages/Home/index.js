@@ -33,13 +33,15 @@ const Home = () => {
 
   useEffect(() => {
     getFeaturedProducts().then((data) => setProducts(data));
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); 
+  
 
   return (
     <Box
       display="flex"
       flexDirection="column"
-      w="100%"
+      w="100%" maxW='1200px'
       alignItems="center"
       gap={2}
     >
