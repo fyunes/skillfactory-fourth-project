@@ -30,7 +30,7 @@ const NavBar = () => {
         </Flex>
 
         <Flex className='search-container' 
-          w='50%'
+          w='55%'
           justify='center' 
           alignItems='center'
           >
@@ -38,7 +38,7 @@ const NavBar = () => {
         </Flex>
 
         <Flex className='cart-icon' 
-          w={{base:'20%', md:'25%'}} h='100%'
+          w={{base:'20%', md:'20%'}} h='100%'
           mt='8px'
           justifyContent='right' alignItems='center'
           >
@@ -49,12 +49,14 @@ const NavBar = () => {
       </Flex>
       {/* ********************** */}
       <Flex className='row2'
-        w='100%' maxW='1200px' h='30%'
-        flexDirection='row'
+        w='100%' maxW='1200px' h='30%'        
+        position='relative'
+        dir='row'
         >
-        <Flex 
+        <Flex className='location-burger'
           w={{base:'100%', md:'30%',lg:'25%'}} h='100%'
-          justifyContent='left' alignItems='center'
+          position='relative'
+          justifyContent='flex-start' alignItems='center'
         >
           <Flex w={{base:'70%', md:'100%'}}>
             <Icon as={ BiMap } w='18px' h='18px' color='gray.500' />          
@@ -65,7 +67,7 @@ const NavBar = () => {
             w='20px' h='20px' marginLeft={{base:'5px', md:'15px'}} color='gray.500'
             />
           </Flex>
-          <Flex w={{base:'30%'}} justify='right'> 
+          <Flex w={{base:'30%'}} justifyContent='flex-end'> 
             {isOpen ? (
               <CloseIcon 
                 onClick={isOpen ? onClose : onOpen}
@@ -80,110 +82,153 @@ const NavBar = () => {
           </Flex> 
         </Flex>
 
-        <Flex className='menu-container'          
-          w={{md:'70%',lg:'75%'}} h={{base:'300px',md:'100%'}}
-          display={{ base: isOpen ? "flex" : "none", sm: "flex" }}
-          dir={{base:'column', md:'row'}} alignItems='center' justify={{base:'center', md:'left'}}
+        <Flex className='home-menu-login'       
+          w={{base:'100%', md:'70%',lg:'75%'}} h={{base:'auto',md:'100%'}}
+          py={{base:'3', md:'0'}}
+          color={{base:'white', md:'gray.600'}}          
+          bg={{base:'gray.600',md:'white'}} borderRadius={5}
+          top={{base:'8', md:'0'}} zIndex='10'
+          display={{ base: isOpen ? "flex" : "none", md: "flex" }}
+          position={{base:'absolute', md:'relative'}}
+          flexDir={{base:'column', md:'row'}} alignItems='center' justifyContent={{base:'center', md:'flex-start'}} right={{base:'0'}}
+        >                  
+          <Flex className='home-menu'
+            w={{base:'100%', md:'60%', lg:'70%'}} 
+            flexDir={{base:'column', md:'row'}}
+            alignItems='center' justifyContent={{base:'center', md:'flex-start'}}
           >
-                  
-          <Flex className='home-menu-login'
-            w='100%'
-            alignItems='center' justify='left'
-            >
             <Link className='home'
-              w='30%'
-              color='gray.600'
-              display='flex' flexDir='row' alignItems='center' justify='left'
+              w={{base:'100%', md:'30%' }}
+              py={{base:'1', md:'0'}} 
+              display='flex' flexDir='row' alignItems='center' justifyContent={{base:'center', md:'flex-start'}}
               style={{ textDecoration: 'none' }}       
               as={RouterLink} to='/'
               _hover={{
-                color:'blue.shop',
+                color:{base:'teal.200', md:'blue.shop'},
+                bg:{base:'whiteAlpha.200', md:'white'}
               }}
-              > 
+              _active={{
+                color:{base:'teal.500', md:'blue.shop'},
+                bg:{base:'gray.700', md:'white'}
+              }}
+            > 
               <Icon as={ BiHomeCircle } 
                 w='18px' h='18px' marginRight='5px'
+                display={{base:'none',md:'inline'}}
               />
               <Text>            
                 Home
               </Text>
             </Link>
             <Flex className='menu'
-            w='70%'            
-              alignItems='center' justifyContent='left'>
+              w={{base:'100%', md:'70%' }} h={{base:'60%',md:'100%'}}
+              gap={{base:'0',md:'4'}}
+              flexDir={{base:'column', md:'row'}}           
+              alignItems='center' justifyContent={{base:'center', md:'flex-start'}}
+            >
               <Link className='women'
-                alignItems='center'
+                w={{base:'100%', md:'auto'}}
+                py={{base:'1', md:'0'}}
                 style={{ textDecoration: 'none' }}
-                color='gray.600'
                 as={RouterLink} to='/'
                 _hover={{
-                  color:'blue.shop',
+                  color:{base:'teal.200', md:'blue.shop'},
+                  bg:{base:'whiteAlpha.200', md:'white'}
+                }}
+                _active={{
+                  color:{base:'teal.500', md:'blue.shop'},
+                  bg:{base:'gray.700', md:'white'}
                 }}
                 > 
-                <Text marginRight='15px'>
+                <Text textAlign='center'>
                   Women
                 </Text>
               </Link>
               <Link className='men'
-                alignItems='center'
+                w={{base:'100%', md:'auto'}}
+                py={{base:'1', md:'0'}}
                 style={{ textDecoration: 'none' }}
-                variant='outline'
-                color='gray.600'
                 as={RouterLink}
                 to='/'
                 _hover={{
-                  color:'blue.shop',
+                  color:{base:'teal.200', md:'blue.shop'},
+                  bg:{base:'whiteAlpha.200', md:'white'}
+                }}
+                _active={{
+                  color:{base:'teal.500', md:'blue.shop'},
+                  bg:{base:'gray.700', md:'white'}
                 }}
                 > 
-                <Text marginRight='15px'>
+                <Text textAlign='center'>
                   Men
                 </Text>
               </Link>
               <Link className='kids'
+                w={{base:'100%', md:'auto'}}
+                py={{base:'1', md:'0'}}
                 alignItems='center'
                 style={{ textDecoration: 'none' }}
-                variant='outline'
-                color='gray.600'
                 as={RouterLink}
                 to='/'
                 _hover={{
-                  color:'blue.shop',
+                  color:{base:'teal.200', md:'blue.shop'},
+                  bg:{base:'whiteAlpha.200', md:'white'}
+                }}
+                _active={{
+                  color:{base:'teal.500', md:'blue.shop'},
+                  bg:{base:'gray.700', md:'white'}
                 }}
                 > 
-                <Text marginRight='15px'>
+                <Text textAlign='center'>
                   Kids
                 </Text>
               </Link>
             </Flex>         
           </Flex>
-          <Flex className='login-container'
-            display={{ base: isOpen ? "flex" : "none", md: "flex" }}
-            w='30%' h='100%' 
-            justifyContent='right' alignItems='center' 
-            >
-              <Link className='login'
-                alignItems='center'
-                style={{ textDecoration: 'none' }}
-                as={RouterLink} to='/'
-                _hover={{
-                  color:'blue.shop',
-                }}
-                > 
-                <Text marginLeft='20px'>
-                  Login
-                </Text>
-              </Link>
-              <Link className='sign-up'
-                alignItems='center'
-                style={{ textDecoration: 'none' }}
-                as={RouterLink} to='/'
-                _hover={{
-                  color:'blue.shop',
-                }}
-                > 
-                <Text marginLeft='20px'>
-                  Sign Up
-                </Text>
-              </Link>
+          <Flex className='login'
+            w={{base:'100%', md:'40%',lg:'30%'}} h={{base:'40%',md:'100%'}}
+            gap={{base:'0',md:'4'}}
+            flexDir={{base:'column', md:'row'}}
+            justifyContent={{base:'center',md:'flex-end'}} alignItems='center'
+          >
+            <Link className='login'
+              w={{base:'100%', md:'auto'}}
+              py={{base:'1', md:'0'}}
+              alignItems='center'
+              style={{ textDecoration: 'none' }}
+              as={RouterLink} to='/'
+              _hover={{
+                color:{base:'teal.200', md:'blue.shop'},
+                bg:{base:'whiteAlpha.200', md:'white'}
+              }}
+              _active={{
+                color:{base:'teal.500', md:'blue.shop'},
+                bg:{base:'gray.700', md:'white'}
+              }}
+              > 
+              <Text textAlign='center'>
+                Login
+              </Text>
+            </Link>
+            <Link className='sign-up'
+              w={{base:'100%', md:'auto'}}
+              py={{base:'1', md:'0'}}
+              alignItems='center'
+              style={{ textDecoration: 'none' }}
+              as={RouterLink} to='/'
+              _hover={{
+                color:{base:'teal.200', md:'blue.shop'},
+                bg:{base:'whiteAlpha.200', md:'white'}
+              }}
+              _active={{
+                color:{base:'teal.500', md:'blue.shop'},
+                bg:{base:'gray.700', md:'white'}
+              }}
+              > 
+              <Text textAlign='center'>
+                Sign Up
+              </Text>
+            </Link>
           </Flex>
         </Flex>
       </Flex>

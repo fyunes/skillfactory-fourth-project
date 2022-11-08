@@ -10,13 +10,12 @@ const Footer = () => {
       w='100%' maxW='1200px' h='100%'
       color='gray.600'
       flexDir={{base:'column', md:'row'}} alignContent='center' justifyContent='center'
-      px={5}
-      py={4}
+      px={5} py={4}
     >
       {/* ********************** */}
       <Flex className='box1'
         w={{base:'100%', md:'35%'}} h='100%'
-        py='3'
+        py='4'
         flexDir='column' alignItems={{base:'center', md:'start'}} justifyContent='space-between'>
         <Image
           w={{ base: '120px', sm:'100px', md: '100px' }}
@@ -53,7 +52,7 @@ const Footer = () => {
       <Flex className='box2'
         w={{base:'100%', md:'35%'}} h='100%'
         fontSize='.8em' color='gray.500'
-        py='3'
+        py='4'
         flexDir='column' alignItems={{base:'center', md:'start'}} justifyContent='space-between'
         >
           <Text fontSize='1.2em' pb='1' color='gray.600'>
@@ -83,7 +82,7 @@ const Footer = () => {
         w={{base:'100%', md:'30%'}} h='100%'
         fontSize='.8em'
         color='gray.500'
-        py='3'
+        py='4'
         flexDir='column' alignItems={{base:'center', md:'start'}} justifyContent='space-between'
         >
           <Text fontSize='1.2em' pb='1' color='gray.600'>
