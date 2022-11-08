@@ -14,7 +14,7 @@ const HomeCarousel = ({ slides }) => {
       {slides.map((slide, index) => {
         return (
           <Box borderRadius={10} key={index}>
-            <Image src={slide.image} height="auto" borderRadius={15} />
+            <Image src={slide.image} height="auto" borderRadius={10} />
           </Box>
         );
       })}

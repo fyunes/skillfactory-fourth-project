@@ -1,24 +1,16 @@
 const SlideData = [
     {
       image:
-        "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1666714735333-home-sliderdesktop.jpg",
+      'https://media.discordapp.net/attachments/997992289425182791/1039269329704853524/black-shop1.jpg?width=960&height=204',
     },
     {
       image:
-        "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1667310388915-home-sliderdesktop2.jpg",
+        'https://media.discordapp.net/attachments/997992289425182791/1039316708181155861/black-shop3.jpg?width=960&height=204',
     },
     {
       image:
-        "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1667332757847-home-sliderdesktop2-martes.jpg",
-    },
-    {
-      image:
-        "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1667189760134-home-sliderdesktop1.jpg",
-    },
-    {
-      image:
-        "https://http2.mlstatic.com/storage/splinter-admin/o:f_webp,q_auto:best/1667254014290-home-sliderdesktop1.jpg",
-    },
+        'https://media.discordapp.net/attachments/997992289425182791/1039274838801514516/black-shop2.jpg?width=960&height=204',
+    }
   ];
   
   export default SlideData;
