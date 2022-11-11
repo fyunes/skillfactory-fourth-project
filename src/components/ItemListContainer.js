@@ -1,32 +1,36 @@
 import ItemList from "./ItemList";
-import { Box, Button } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { Box } from "@chakra-ui/react";
+import { useState, useEffect, useCallback } from "react";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../firebase/firebase";
-import { Link } from "react-router-dom";
 
-const ItemListContainer = () => {
+const ItemListContainer = ({ category }) => {
   const [products, setProducts] = useState([]);
-
   const productsCollection = collection(db, "products");
+  const categoryQuery = category
+    ? query(productsCollection, where("category", "==", category))
+    : undefined;
 
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
     try {
-      const productsData = await getDocs(productsCollection);
+      const productsData = await getDocs(
+        categoryQuery ? categoryQuery : productsCollection
+      );
       return productsData;
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [categoryQuery, productsCollection]);
 
   useEffect(() => {
-    getProducts().then((productsData) =>
+    getProducts().then((productsData) => {
       setProducts(
         productsData.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      )
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+      );
+    });
+
+    // eslint-disable-next-line
+  }, [category]);
 
   return (
     <Box
@@ -37,13 +41,6 @@ const ItemListContainer = () => {
       justifyContent="center"
       w="100%"
     >
-
-      {/* Sacar este boton una vez que este la navbar  */}
-      <Link to="/">
-        <Button colorScheme="yellow">Home</Button>
-      </Link>
-      {/* --- */}
-
       <ItemList products={products} />
     </Box>
   );

@@ -64,7 +64,7 @@ const ItemDetail = ({ id }) => {
           <Text>
             {" "}
             <b>Color: </b>{" "}
-            {product.color[0].toUpperCase().concat(product.color.substring(1))}
+            {product.color}
           </Text>
           <Text fontSize="3xl" fontWeight="700">
             ${product.price}

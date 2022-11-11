@@ -31,27 +31,40 @@ const App = () => {
         }}
         gridTemplateColumns="1fr"
       >
-        <GridItem area={"navbar"}
-          display='flex' alignItems='center' justifyContent='center'
+        <GridItem
+          area={"navbar"}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
         >
           <NavBar />
         </GridItem>
-        <GridItem area={"main"}
-          mt={10} mb={10}
-          display='flex' justifyContent='center'
+        <GridItem
+          area={"main"}
+          mt={10}
+          mb={10}
+          display="flex"
+          justifyContent="center"
         >
           <Routes>
             <Route path="/" element={<Home title="Shop" />} />
-            <Route path="/products" element={<Products title="Products" />} />
+            <Route
+              path="/products"
+              element={<Products title="All Products" />}
+            />
+            <Route path="/category/:category" element={<Products title="Products" />} />
+            <Route path="/category/:category/:id" element={<ProductDetail />} />
             <Route path="/products/:id" element={<ProductDetail />} />
-            <Route path="/" element={<Home title="Shop" />} />
             <Route path="/cart" element={<Cart title="Cart" />} />
           </Routes>
         </GridItem>
-        <GridItem area={"footer"} 
-          display='flex' alignItems='center' justifyContent='center'
+        <GridItem
+          area={"footer"}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
           bg="gray.100"
-          >
+        >
           <Footer />
         </GridItem>
       </Grid>
