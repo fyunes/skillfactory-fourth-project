@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button, Box, Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import HomeCarousel from "../../components/HomeCarousel";
 import Slidedata from "../../components/Slidedata";
 import { collection, getDocs } from "firebase/firestore";
@@ -10,7 +10,6 @@ import Item from "../../components/Item";
 const Home = () => {
   const [products, setProducts] = useState([]);
   const productsCollection = collection(db, "products");
-
   const getFeaturedProducts = async () => {
     try {
       const productsData = await getDocs(productsCollection);
@@ -33,32 +32,25 @@ const Home = () => {
 
   useEffect(() => {
     getFeaturedProducts().then((data) => setProducts(data));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); 
-  
+    // eslint-disable-next-line 
+  }, []);
 
   return (
     <Box
       display="flex"
       flexDirection="column"
-      w="100%" maxW='1200px'
+      w="100%"
+      maxW="1200px"
       alignItems="center"
       gap={2}
     >
       <Box mb={5} px={100}>
         <HomeCarousel slides={Slidedata} />
       </Box>
-
-      {/* Sacar este boton una vez que este la navbar  */}
-      <Link to="/products">
-        <Button colorScheme="yellow">Products</Button>
-      </Link>
-      {/* ---- */}
-
-      <Heading fontWeight='400' size="lg" as="h2">
+      <Heading fontWeight="400" size="lg" as="h2">
         Featured Products
       </Heading>
-      <Box display="flex" w="50%" flexWrap="wrap" gap={5} my={5}>
+      <Box display="flex" justifyContent='center' w="80%" flexWrap="wrap" gap={5} my={5}>
         {products.map((product) => {
           return (
             <Link key={product.id} to={`/products/${product.id}`}>

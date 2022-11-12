@@ -1,9 +1,14 @@
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState([]);
+  const cartFromStorage = JSON.parse(localStorage.getItem("cart") || "[]");
+  const [cart, setCart] = useState(cartFromStorage);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addToCart = (item, count) => {
     if (cart.some((element) => element.id === item.id)) {
@@ -17,7 +22,7 @@ const CartProvider = ({ children }) => {
       let product = { ...item, count };
       setCart([...cart, product]);
     }
-};
+  };
 
   const updateCart = (id, newCount) => {
     if (cart.some((element) => element.id === id)) {
@@ -32,8 +37,8 @@ const CartProvider = ({ children }) => {
 
   const removeById = (id) => {
     if (cart.some((element) => element.id === id)) {
-     const newCart = cart.filter((product) => product.id !== id);
-     setCart(newCart);
+      const newCart = cart.filter((product) => product.id !== id);
+      setCart(newCart);
     }
   };
 
@@ -41,7 +46,9 @@ const CartProvider = ({ children }) => {
     setCart([]);
   };
   return (
-    <CartContext.Provider value={{ cart, addToCart, updateCart, removeById, removeAll }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, updateCart, removeById, removeAll }}
+    >
       {children}
     </CartContext.Provider>
   );

@@ -9,7 +9,7 @@ const Item = ({ product }) => {
       bg="linear-gradient(to top, #f7faff, #f7faff, #f6faff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)"
       pb={2}
       h={{base:'200px', md:"370px"}}
-      w={{base: '100px', md:"220px"}}
+      w={{base: '120px', md:"220px"}}
       gap={2}
       borderRadius={10}
       shadow="md"
