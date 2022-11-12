@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Button, Box, Heading } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 import HomeCarousel from "../../components/HomeCarousel";
 import Slidedata from "../../components/Slidedata";
 import { collection, getDocs } from "firebase/firestore";
@@ -32,7 +32,7 @@ const Home = () => {
 
   useEffect(() => {
     getFeaturedProducts().then((data) => setProducts(data));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line 
   }, []);
 
   return (
@@ -50,7 +50,7 @@ const Home = () => {
       <Heading fontWeight="400" size="lg" as="h2">
         Featured Products
       </Heading>
-      <Box display="flex" w="80%" flexWrap="wrap" gap={5} my={5}>
+      <Box display="flex" justifyContent='center' w="80%" flexWrap="wrap" gap={5} my={5}>
         {products.map((product) => {
           return (
             <Link key={product.id} to={`/products/${product.id}`}>

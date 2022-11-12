@@ -36,8 +36,19 @@ const ItemDetail = ({ id }) => {
   }, [id]);
 
   return product ? (
-    <Stack direction="row" width="60%" py={5} borderRadius={4} h="55vh">
-      <Box display="flex" justifyContent="center" width="60%">
+    <Stack
+      direction={{ base: "column", md: "row" }}
+      width={{ base: "90%", lg: "60%" }}
+      py={5}
+      borderRadius={4}
+      alignItems="center"
+      h={{ lg: "55vh" }}
+    >
+      <Box
+        display="flex"
+        justifyContent="center"
+        width={{ base: "100%", md: "60%" }}
+      >
         <Box w="50%" h="100%" borderRadius={5}>
           <Image
             objectFit="cover"
@@ -47,7 +58,15 @@ const ItemDetail = ({ id }) => {
           />
         </Box>
       </Box>
-      <Box width="30%" borderWidth={2} borderRadius={5}>
+      <Box
+        width={{ base: "100%", md: '70%', lg: "30%" }}
+        borderWidth={1}
+        borderRadius={5}
+        pb={5}
+        display='flex'
+        flexDirection='column'
+        alignItems={{base: 'center', lg: 'start'}}
+      >
         <Box display="flex" flexDirection="column" p={3} gap={3}>
           <Heading as="h2" size="md">
             {product.title}
@@ -63,8 +82,7 @@ const ItemDetail = ({ id }) => {
           </Tag>
           <Text>
             {" "}
-            <b>Color: </b>{" "}
-            {product.color}
+            <b>Color: </b> {product.color}
           </Text>
           <Text fontSize="3xl" fontWeight="700">
             ${product.price}

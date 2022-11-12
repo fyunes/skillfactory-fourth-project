@@ -124,6 +124,7 @@ const NavBar = () => {
               style={{ textDecoration: "none" }}
               as={RouterLink}
               to="/"
+              onClick={onClose}
               _hover={{
                 color: { base: "teal.200", md: "blue.shop" },
                 bg: { base: "whiteAlpha.200", md: "white" },
@@ -159,6 +160,7 @@ const NavBar = () => {
                 style={{ textDecoration: "none" }}
                 as={RouterLink}
                 to="/category/women"
+                onClick={onClose}
                 _hover={{
                   color: { base: "teal.200", md: "blue.shop" },
                   bg: { base: "whiteAlpha.200", md: "white" },
@@ -177,6 +179,7 @@ const NavBar = () => {
                 style={{ textDecoration: "none" }}
                 as={RouterLink}
                 to="/category/men"
+                onClick={onClose}
                 _hover={{
                   color: { base: "teal.200", md: "blue.shop" },
                   bg: { base: "whiteAlpha.200", md: "white" },
@@ -196,6 +199,7 @@ const NavBar = () => {
                 style={{ textDecoration: "none" }}
                 as={RouterLink}
                 to="/category/kids"
+                onClick={onClose}
                 _hover={{
                   color: { base: "teal.200", md: "blue.shop" },
                   bg: { base: "whiteAlpha.200", md: "white" },
@@ -209,6 +213,35 @@ const NavBar = () => {
               </Link>
             </Flex>
           </Flex>
+          <Flex
+            className="login"
+            w={{ base: "100%", md: "40%", lg: "30%" }}
+            h={{ base: "40%", md: "100%" }}
+            gap={{ base: "0", md: "4" }}
+            flexDir={{ base: "column", md: "row" }}
+            justifyContent={{ base: "center", md: "flex-end" }}
+            alignItems="center"
+          >
+          <Link
+              className="purchasehistory"
+              w={{ base: "100%", md: "auto" }}
+              py={{ base: "1", md: "0" }}
+              style={{ textDecoration: "none" }}
+              as={RouterLink}
+              to="/purchase-history"
+              onClick={onClose}
+              _hover={{
+                color: { base: "teal.200", md: "blue.shop" },
+                bg: { base: "whiteAlpha.200", md: "white" },
+              }}
+              _active={{
+                color: { base: "teal.500", md: "blue.shop" },
+                bg: { base: "gray.700", md: "white" },
+              }}
+            >
+              <Text textAlign='center'>Purchase History</Text>
+            </Link>
+            </Flex>
           <Flex
             className="login"
             w={{ base: "100%", md: "40%", lg: "30%" }}

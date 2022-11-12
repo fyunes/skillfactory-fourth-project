@@ -36,15 +36,18 @@ const Cart = () => {
         .toFixed(2)
     : 0;
   let totalUnits =
-    cart.length > 1
-      ? cart.map((product) => parseInt(product.count)).reduce((a, b) => a + b, 0)
-      : cart[0].count;
+    cart.length > 0
+      ? cart
+          .map((product) => parseInt(product.count))
+          .reduce((a, b) => a + b, 0)
+      : cart.forEach((product) => product.count);
 
   return (
     <>
       <Box
         w="100%"
-        h="100vh"
+        maxW="100%"
+        minH={{ md: "60vh" }}
         display="flex"
         p={5}
         gap={2}
@@ -54,7 +57,7 @@ const Cart = () => {
       >
         <Box w="100%" display="flex" justifyContent="center">
           <Box
-            w="70%"
+            w="100%"
             display="flex"
             alignItems="center"
             flexDirection="column"
@@ -62,141 +65,168 @@ const Cart = () => {
             gap={5}
             borderRadius={5}
           >
-            <Box w="85%" display="flex" justifyContent="space-between">
+            <Box w="65%" display="flex" justifyContent="space-evenly">
               <Heading size="lg" as="h2">
-                Your cart ({cart.length} {cart.length > 1 ? "items" : "item"})
+                Your cart ({cart.length} {cart.length === 1 ? "item" : "items"})
               </Heading>
-              <Button colorScheme="red" variant="outline" onClick={onOpen}>
-                Remove All
-              </Button>
+              {cart.length ? (
+                <Button colorScheme="red" variant="outline" onClick={onOpen}>
+                  Remove all items
+                </Button>
+              ) : null}
             </Box>
-            {cart.map((product) => {
-              const total = (product.price * product.count).toFixed(2);
-              return (
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  borderRadius={10}
-                  alignItems="center"
-                  borderWidth={1}
-                  px={5}
-                  py={2}
-                  gap={3}
-                  borderColor="gray.300"
-                  w="90%"
-                  h="200px"
-                  key={product.id}
-                >
-                  <Box
-                    w="20%"
-                    h="95%"
-                    alignSelf="center"
-                    borderWidth={1}
-                    borderColor="gray.100"
-                    borderRadius={10}
-                  >
-                    <Image
-                      boxSize="100%"
-                      objectFit="contain"
-                      borderRadius={10}
-                      src={product.image}
-                    />
-                  </Box>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
-                    gap={2}
-                  >
-                    <Text fontSize="lg" fontWeight="700">
-                      {product.title}
-                    </Text>
-                    <Text>Product ID:</Text>
-                    <Text>{product.id}</Text>
-                  </Box>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                  >
-                    <Text fontWeight="bold">Color</Text>
-                    <Text>
-                      {product.color[0]
-                        .toUpperCase()
-                        .concat(product.color.substring(1))}
-                    </Text>
-                  </Box>
-                  <NumberInput
-                    mb={3}
-                    size="sm"
-                    alignSelf="center"
-                    maxW={20}
-                    defaultValue={product.count}
-                    min={1}
-                    max={product.stock}
-                    onChange={(e) => updateCart(product.id, e)}
-                  >
-                    <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                  <Box
-                    display="flex"
-                    flexDirection="column"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <Text fontWeight="bold">Total</Text>
-                    <Text>$ {total}</Text>
-                  </Box>
-                  <Button
-                    onClick={() => removeById(product.id)}
-                    colorScheme="red"
-                    alignSelf="center"
-                  >
-                    Remove this item
-                  </Button>
-                </Box>
-              );
-            })}
-          </Box>
-          <Box w="20%" display="flex" flexDirection="column" gap={2}>
+
             <Box
               display="flex"
-              flexDirection="column"
-              borderWidth={1}
-              mt={20}
-              borderColor="gray.300"
-              h="10rem"
-              p={5}
-              gap={5}
-              borderRadius={10}
               w="100%"
+              p={5}
+              justifyContent="center"
+              flexDirection={{ base: "column", lg: "row" }}
+              gap={{ base: 1, lg: 5 }}
             >
-              <Box display="flex" justifyContent="space-between">
-                <Text fontSize="sm">Items ({cart.length})</Text>
-                <Text fontSize="sm">Units ({totalUnits})</Text>
-                <Text>$ {total}</Text>
+              <Box
+                display="flex"
+                gap={3}
+                w={{ base: "100%", lg: "80%" }}
+                justifyContent="center"
+                alignItems="center"
+                flexDirection="column"
+              >
+                {cart.map((product) => {
+                  const total = (product.price * product.count).toFixed(2);
+                  return (
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      borderRadius={10}
+                      alignItems="center"
+                      borderWidth={1}
+                      px={5}
+                      py={2}
+                      gap={3}
+                      borderColor="gray.300"
+                      w={{ base: "100%", xl: "80%" }}
+                      h="200px"
+                      key={product.id}
+                    >
+                      <Box
+                        w="20%"
+                        h="95%"
+                        alignSelf="center"
+                        borderWidth={1}
+                        borderColor="gray.100"
+                        borderRadius={10}
+                      >
+                        <Image
+                          boxSize="100%"
+                          objectFit="contain"
+                          borderRadius={10}
+                          src={product.image}
+                        />
+                      </Box>
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        gap={2}
+                      >
+                        <Text fontSize="lg" fontWeight="700">
+                          {product.title}
+                        </Text>
+                        <Text>Product ID:</Text>
+                        <Text>{product.id}</Text>
+                      </Box>
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        alignItems="center"
+                      >
+                        <Text fontWeight="bold">Color</Text>
+                        <Text>
+                          {product.color[0]
+                            .toUpperCase()
+                            .concat(product.color.substring(1))}
+                        </Text>
+                      </Box>
+                      <NumberInput
+                        mb={3}
+                        size="sm"
+                        alignSelf="center"
+                        maxW={20}
+                        defaultValue={product.count}
+                        min={1}
+                        max={product.stock}
+                        onChange={(e) => updateCart(product.id, e)}
+                      >
+                        <NumberInputField />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                      <Box
+                        display="flex"
+                        flexDirection="column"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <Text fontWeight="bold">Total</Text>
+                        <Text>$ {total}</Text>
+                      </Box>
+                      <Button
+                        onClick={() => removeById(product.id)}
+                        colorScheme="red"
+                        alignSelf="center"
+                      >
+                        Remove
+                      </Button>
+                    </Box>
+                  );
+                })}
               </Box>
-              <Box display="flex" justifyContent="space-between">
-                <Text fontSize="sm">Shipping</Text>
-                <Text>$0</Text>
-              </Box>
-              <Box display="flex" justifyContent="space-between">
-                <Text fontWeight="bold" fontSize="xl">
-                  Total:
-                </Text>
-                <Text>${total}</Text>
-              </Box>
+              {cart.length ? (
+                <Box
+                  w={{ base: "90%", lg: "30%" }}
+                  display="flex"
+                  flexDirection="column"
+                  gap={2}
+                >
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    borderWidth={1}
+                    borderColor="gray.300"
+                    h="10rem"
+                    p={5}
+                    gap={5}
+                    borderRadius={10}
+                    w="100%"
+                  >
+                    <Box display="flex" justifyContent="space-between">
+                      <Text fontSize="sm">Items ({cart.length})</Text>
+                      <Text fontSize="sm">Units ({totalUnits})</Text>
+                      <Text>$ {total}</Text>
+                    </Box>
+                    <Box display="flex" justifyContent="space-between">
+                      <Text fontSize="sm">Shipping</Text>
+                      <Text>$0</Text>
+                    </Box>
+                    <Box display="flex" justifyContent="space-between">
+                      <Text fontWeight="bold" fontSize="xl">
+                        Total:
+                      </Text>
+                      <Text>${total}</Text>
+                    </Box>
+                  </Box>
+                  <Link to="/checkout">
+                    <Button w="100%" colorScheme="green">
+                      Checkout
+                    </Button>
+                  </Link>
+                </Box>
+              ) : null}
             </Box>
-            <Link>
-              <Button w="100%" colorScheme="green">
-                Checkout
-              </Button>
-            </Link>
           </Box>
         </Box>
       </Box>
