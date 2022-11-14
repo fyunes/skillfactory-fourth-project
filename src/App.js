@@ -5,8 +5,7 @@ import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
-import { Box } from "@chakra-ui/react";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, Box } from "@chakra-ui/react";
 import { Routes, Route } from "react-router-dom";
 import Checkout from "./pages/Checkout";
 import PurchaseHistory from "./pages/PurchaseHistory";
@@ -63,7 +62,7 @@ const App = () => {
             <Route path="/cart" element={<Cart title="Cart" />} />
             <Route path="/checkout" element={<Checkout title="Checkout" />} />
             <Route
-              path="/checkout/:id"
+              path="/checkout/:id/:qty"
               element={<Checkout title="Checkout" />}
             />
             <Route path="/purchase-history" element={<PurchaseHistory />} />

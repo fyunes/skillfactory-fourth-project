@@ -18,7 +18,7 @@ const ItemListContainer = ({ category }) => {
       );
       return productsData;
     } catch (err) {
-      console.error(err);
+      console.error('error in getProducts', err);
     }
   }, [categoryQuery, productsCollection]);
 
@@ -28,7 +28,6 @@ const ItemListContainer = ({ category }) => {
         productsData.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );
     });
-
     // eslint-disable-next-line
   }, [category]);
 

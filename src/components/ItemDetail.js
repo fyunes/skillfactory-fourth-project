@@ -11,20 +11,21 @@ import {
   NumberDecrementStepper,
   NumberIncrementStepper,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import { doc, getDoc } from "firebase/firestore";
 import { useEffect, useState, useContext } from "react";
 import { db } from "../firebase/firebase";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartProvider";
 
 const ItemDetail = ({ id }) => {
   const cartContext = useContext(CartContext);
   const { addToCart } = cartContext;
   const [product, setProduct] = useState({});
-  const navigate = useNavigate();
   const [count, setCount] = useState(1);
-
+  const toast = useToast();
+  
   const getProduct = async (id) => {
     const productRef = doc(db, "products", id);
     const productSnap = await getDoc(productRef);
@@ -59,13 +60,13 @@ const ItemDetail = ({ id }) => {
         </Box>
       </Box>
       <Box
-        width={{ base: "100%", md: '70%', lg: "30%" }}
+        width={{ base: "100%", md: "70%", lg: "30%" }}
         borderWidth={1}
         borderRadius={5}
         pb={5}
-        display='flex'
-        flexDirection='column'
-        alignItems={{base: 'center', lg: 'start'}}
+        display="flex"
+        flexDirection="column"
+        alignItems={{ base: "center", lg: "start" }}
       >
         <Box display="flex" flexDirection="column" p={3} gap={3}>
           <Heading as="h2" size="md">
@@ -103,7 +104,7 @@ const ItemDetail = ({ id }) => {
               defaultValue={1}
               min={1}
               max={product.stock}
-              onChange={(e) => setCount(e)}
+              onChange={(e) => setCount(parseInt(e))}
             >
               <NumberInputField />
               <NumberInputStepper>
@@ -114,11 +115,20 @@ const ItemDetail = ({ id }) => {
             <Text>Stock: {product.stock}</Text>
           </Box>
           <Box display="flex" gap={3} px={3}>
+            <Link to={`/checkout/${id}/${count}`}>
             <Button colorScheme="green">Buy Now</Button>
+            </Link>
             <Button
               onClick={() => {
                 addToCart(product, count);
-                navigate("/cart");
+                toast({
+                  title: `Success!`,
+                  description: "The product has been added to your cart",
+                  status: "success",
+                  duration: 2000,
+                  isClosable: true,
+                  position: "top-right",
+                });
               }}
               colorScheme="yellow"
             >

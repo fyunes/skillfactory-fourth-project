@@ -7,63 +7,147 @@ import {
   FormControl,
   useToast,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
 import { CartContext } from "../../context/CartProvider";
 import { db } from "../../firebase/firebase";
-import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, setDoc } from "firebase/firestore";
 
 const Checkout = () => {
-  const dbPurchases = collection(db, "purchases");
   const navigate = useNavigate();
   const cartContext = useContext(CartContext);
-  const { cart, removeAll } = cartContext;
+  const { cart, removeAll, purchases, setPurchases } = cartContext;
   const toast = useToast();
+  const { id } = useParams();
+  const { qty } = useParams();
+  const [singleProduct, setSingleProduct] = useState({});
 
-  const handleSubmit = (e) => {
+  const getProductById = async (id) => {
+    const productRef = doc(db, "products", id);
+    const snapshot = await getDoc(productRef);
+    const newProduct = { ...snapshot.data(), count: parseInt(qty), id: id };
+    return newProduct;
+  };
+
+  useEffect(() => {
+    if (id) {
+      getProductById(id).then((newProduct) => setSingleProduct(newProduct));
+    }
+    // eslint-disable-next-line
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      cart.map(async (product) => {
-        await addDoc(dbPurchases, {...product });
-        let productRef = doc(db, "products", product.id);
+    if (id) {
+      try {
+        setPurchases([...purchases, singleProduct]);
         let productsInDB = await getDocs(collection(db, "products"));
         let targetProduct = productsInDB.docs.find(
-          (prodFromDB) => prodFromDB.id === product.id
+          (prodFromDB) => prodFromDB.id === id
         );
-        await setDoc(productRef, {
+        await setDoc(doc(db, "products", id), {
           ...targetProduct.data(),
-          stock: targetProduct.data().stock - product.count,
+          stock: targetProduct.data().stock - qty,
         });
-      });
-      toast({
-        title: `Success!`,
-        description: "You have successfully purchased your products!",
-        status: "success",
-        duration: 2000,
-        isClosable: true,
-        position: "top-right",
-      });
-      removeAll();
-      setTimeout(() => navigate("/"), 3000);
-    } catch (err) {
-      console.error(err);
+        toast({
+          title: `Success!`,
+          description: "You have successfully purchased your products!",
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+          position: "top-right",
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      try {
+        if (cart.length) {
+          cart.map(async (product) => {
+            let productRef = doc(db, "products", product.id);
+            let productsInDB = await getDocs(collection(db, "products"));
+            let targetProduct = productsInDB.docs.find(
+              (prodFromDB) => prodFromDB.id === product.id
+            );
+            await setDoc(productRef, {
+              ...targetProduct.data(),
+              stock: targetProduct.data().stock - product.count,
+            });
+          });
+          setPurchases([...purchases, ...cart]);
+          toast({
+            title: `Success!`,
+            description: "You have successfully purchased your products!",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
+            position: "top-right",
+          });
+          removeAll();
+          setTimeout(() => navigate("/"), 2000);
+        } else {
+          toast({
+            title: `Error!`,
+            description: "Your cart is empty!",
+            status: "error",
+            duration: 2000,
+            isClosable: true,
+            position: "top-right",
+          });
+        }
+      } catch (err) {
+        toast({
+          title: `Error`,
+          description: "Something went wrong, try again",
+          status: "error",
+          duration: 2000,
+          isClosable: true,
+          position: "top-right",
+        });
+        console.error(err);
+      }
     }
   };
 
   return (
     <Box w="100%" display="flex" justifyContent="center" gap={7} p={5}>
-      <Box w="25%" display="flex" flexDirection="column" gap={2} mt={5}>
-        {cart.map((product) => {
-          return (
-            <Box p={2} display="flex" justifyContent="space-between">
-              <Text>{product.title}</Text>
-              <Text>x{product.count}</Text>
-              <Text fontWeight="bold">
-                $ {(product.count * product.price).toFixed(2)}
-              </Text>
-            </Box>
-          );
-        })}
+      <Box
+        w="25%"
+        display="flex"
+        flexDirection="column"
+        gap={2}
+        mt={5}
+        borderRadius={10}
+        shadow="md"
+        h="fit-content"
+        p={5}
+      >
+        {!id ? (
+          cart.map((product) => {
+            return (
+              <Box
+                p={2}
+                display="flex"
+                justifyContent="space-between"
+                key={product.id}
+              >
+                <Text w="250px">{product.title}</Text>
+                <Text>x{product.count}</Text>
+                <Text fontWeight="bold">
+                  $ {(product.count * product.price).toFixed(2)}
+                </Text>
+              </Box>
+            );
+          })
+        ) : (
+          <Box p={2} display="flex" justifyContent="space-between">
+            <Text>{singleProduct.title}</Text>
+            <Text>x{singleProduct.count}</Text>
+            <Text fontWeight="bold">
+              $ {(singleProduct.count * singleProduct.price).toFixed(2)}
+            </Text>
+          </Box>
+        )}
         <Divider />
         <Box alignSelf="end" mr={3}>
           <Text fontSize="lg" fontWeight="bold" textAlign="center">
@@ -71,10 +155,12 @@ const Checkout = () => {
           </Text>
           <Text fontWeight="bold" fontSize="lg">
             $
-            {cart
-              .map((product) => product.price * product.count)
-              .reduce((a, b) => a + b, 0)
-              .toFixed(2)}
+            {id
+              ? (singleProduct.price * singleProduct.count).toFixed(2)
+              : cart
+                  .map((product) => product.count * product.price)
+                  .reduce((a, b) => a + b, 0)
+                  .toFixed(2)}
           </Text>
         </Box>
       </Box>

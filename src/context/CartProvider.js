@@ -4,17 +4,29 @@ export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
   const cartFromStorage = JSON.parse(localStorage.getItem("cart") || "[]");
+  const purchasesFromStorage = JSON.parse(
+    localStorage.getItem("purchases") || "[]"
+  );
   const [cart, setCart] = useState(cartFromStorage);
+  const [purchases, setPurchases] = useState(purchasesFromStorage);
 
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
+  useEffect(() => {
+    localStorage.setItem("purchases", JSON.stringify(purchases));
+  }, [purchases]);
+
+  const clearHistory = () => {
+    setPurchases([]);
+  };
+
   const addToCart = (item, count) => {
     if (cart.some((element) => element.id === item.id)) {
       const indexProduct = cart.findIndex((element) => element.id === item.id);
       let product = cart[indexProduct];
-      product = { ...product, count: +product.count + count };
+      product = { ...product, count: parseInt(product.count + count) };
       const newCart = [...cart];
       newCart.splice(indexProduct, 1, product);
       setCart(newCart);
@@ -47,7 +59,16 @@ const CartProvider = ({ children }) => {
   };
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, updateCart, removeById, removeAll }}
+      value={{
+        cart,
+        addToCart,
+        updateCart,
+        removeById,
+        removeAll,
+        purchases,
+        setPurchases,
+        clearHistory,
+      }}
     >
       {children}
     </CartContext.Provider>
