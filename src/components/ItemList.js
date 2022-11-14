@@ -12,7 +12,7 @@ const ItemList = ({ products }) => {
       justifyContent="center"
       alignItems="center"
       flexWrap="wrap"
-      gap={7}
+      gap={{base: 1, md: 7}}
     >
       {!products
         ? "Loading"

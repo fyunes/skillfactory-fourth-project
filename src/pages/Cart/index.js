@@ -65,7 +65,13 @@ const Cart = () => {
             gap={5}
             borderRadius={5}
           >
-            <Box w="65%" display="flex" justifyContent="space-evenly">
+            <Box
+              w={{ base: "90%", lg: "55%" }}
+              display="flex"
+              justifyContent="space-between"
+              ml={{ base: 0, lg: "9rem" }}
+              alignSelf={{ base: "center", lg: "start" }}
+            >
               <Heading size="lg" as="h2">
                 Your cart ({cart.length} {cart.length === 1 ? "item" : "items"})
               </Heading>
@@ -86,8 +92,8 @@ const Cart = () => {
             >
               <Box
                 display="flex"
-                gap={3}
-                w={{ base: "100%", lg: "80%" }}
+                gap={5}
+                w={{ base: "100%", lg: "70%" }}
                 justifyContent="center"
                 alignItems="center"
                 flexDirection="column"
@@ -106,7 +112,7 @@ const Cart = () => {
                       gap={3}
                       borderColor="gray.300"
                       w={{ base: "100%", xl: "80%" }}
-                      h="200px"
+                      h={{ base: "100px", md: "200px" }}
                       key={product.id}
                     >
                       <Box
@@ -179,7 +185,7 @@ const Cart = () => {
                         colorScheme="red"
                         alignSelf="center"
                       >
-                        Remove
+                        X
                       </Button>
                     </Box>
                   );
@@ -187,6 +193,7 @@ const Cart = () => {
               </Box>
               {cart.length ? (
                 <Box
+                  alignSelf={{ base: "center", lg: "start" }}
                   w={{ base: "90%", lg: "30%" }}
                   display="flex"
                   flexDirection="column"
