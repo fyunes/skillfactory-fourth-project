@@ -110,9 +110,17 @@ const Checkout = () => {
   };
 
   return (
-    <Box w="100%" display="flex" justifyContent="center" gap={7} p={5}>
+    <Box
+      w="100%"
+      display="flex"
+      justifyContent="center"
+      alignItems={{ base: "center", md: "start" }}
+      flexDirection={{ base: "column", md: "row" }}
+      gap={7}
+      p={5}
+    >
       <Box
-        w="25%"
+        w={{ base: "100%", sm: "80%", md: "40%", lg: "25%" }}
         display="flex"
         flexDirection="column"
         gap={2}
@@ -131,7 +139,7 @@ const Checkout = () => {
                 justifyContent="space-between"
                 key={product.id}
               >
-                <Text w="250px">{product.title}</Text>
+                <Text w={{base: '200px', md: "250px"}}>{product.title}</Text>
                 <Text>x{product.count}</Text>
                 <Text fontWeight="bold">
                   $ {(product.count * product.price).toFixed(2)}
@@ -166,7 +174,7 @@ const Checkout = () => {
       </Box>
 
       <Box
-        w="25%"
+        w={{ base: "100%", sm: "80%", md: "50%", lg: "30%" }}
         display="flex"
         justifyContent="center"
         borderRadius={10}
@@ -237,7 +245,7 @@ const Checkout = () => {
               </Box>
             </FormControl>
             <FormControl w="100%" display="flex" flexDirection="column" gap={2}>
-              <Box display="flex" gap={2}>
+              <Box display="flex" gap={2} flexDirection={{base: 'column', md:'row'}}>
                 <Input
                   type="text"
                   id="cardholder"
