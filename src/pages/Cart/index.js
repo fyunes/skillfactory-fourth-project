@@ -43,9 +43,10 @@ const Cart = () => {
       : cart.forEach((product) => product.count);
 
   return (
-    <>
+    <Box w="100%" display="flex" flexDirection="column" overflow="hidden">
       <Box
         w="100%"
+        overflow="hidden"
         maxW="100%"
         minH={{ md: "60vh" }}
         display="flex"
@@ -68,15 +69,18 @@ const Cart = () => {
             <Box
               w={{ base: "90%", lg: "55%" }}
               display="flex"
+              gap={2}
+              flexDirection={{base: 'column', md: 'row'}}
               justifyContent="space-between"
+              alignItems={{base: 'center'}}
               ml={{ base: 0, lg: "9rem" }}
               alignSelf={{ base: "center", lg: "start" }}
             >
-              <Heading size="lg" as="h2">
+              <Heading ml={{base: 0, xl: 20}} size="lg" as="h2">
                 Your cart ({cart.length} {cart.length === 1 ? "item" : "items"})
               </Heading>
               {cart.length ? (
-                <Button colorScheme="red" variant="outline" onClick={onOpen}>
+                <Button mr={{base: 0, lg:20}} colorScheme="red" variant="outline" onClick={onOpen}>
                   Remove all items
                 </Button>
               ) : null}
@@ -108,16 +112,16 @@ const Cart = () => {
                       alignItems="center"
                       borderWidth={1}
                       px={5}
+                      flexDirection={{ base: "column", md: "row" }}
                       py={2}
                       gap={3}
                       borderColor="gray.300"
-                      w={{ base: "100%", xl: "80%" }}
-                      h={{ base: "100px", md: "200px" }}
+                      w={{ base: "100%", xl: "70%" }}
                       key={product.id}
                     >
                       <Box
-                        w="20%"
-                        h="95%"
+                        w={{ base: "40%", sm:'30%', lg: "20%" }}
+                        h="90%"
                         alignSelf="center"
                         borderWidth={1}
                         borderColor="gray.100"
@@ -130,58 +134,84 @@ const Cart = () => {
                           src={product.image}
                         />
                       </Box>
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        gap={2}
-                      >
-                        <Text fontSize="lg" fontWeight="700">
-                          {product.title}
-                        </Text>
-                        <Text>Product ID:</Text>
-                        <Text>{product.id}</Text>
+                      <Box display="flex" gap={5}>
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          justifyContent="center"
+                          alignItems="center"
+                          gap={2}
+                        >
+                          <Text
+                            fontSize={{ base: "md", md: "lg" }}
+                            fontWeight="700"
+                            textAlign='center'
+                          >
+                            {product.title}
+                          </Text>
+                          <Text fontSize={{ base: "sm", md: "md" }}>
+                            Product ID:
+                          </Text>
+                          <Text fontSize={{ base: "sm", md: "md" }}>
+                            {product.id}
+                          </Text>
+                        </Box>
                       </Box>
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        alignItems="center"
-                      >
-                        <Text fontWeight="bold">Color</Text>
-                        <Text>
-                          {product.color[0]
-                            .toUpperCase()
-                            .concat(product.color.substring(1))}
-                        </Text>
-                      </Box>
-                      <NumberInput
-                        mb={3}
-                        size="sm"
-                        alignSelf="center"
-                        maxW={20}
-                        defaultValue={product.count}
-                        min={1}
-                        max={product.stock}
-                        onChange={(e) => updateCart(product.id, e)}
-                      >
-                        <NumberInputField />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                      <Box
-                        display="flex"
-                        flexDirection="column"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <Text fontWeight="bold">Total</Text>
-                        <Text>$ {total}</Text>
+                      <Box display="flex" gap={7}>
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          alignItems="center"
+                        >
+                          <Text
+                            fontSize={{ base: "sm", md: "md" }}
+                            fontWeight="bold"
+                          >
+                            Color
+                          </Text>
+                          <Text fontSize={{ base: "sm", md: "md" }}>
+                            {product.color[0]
+                              .toUpperCase()
+                              .concat(product.color.substring(1))}
+                          </Text>
+                        </Box>
+                        <NumberInput
+                          mb={3}
+                          size="sm"
+                          alignSelf="center"
+                          maxW={20}
+                          defaultValue={product.count}
+                          min={1}
+                          max={product.stock}
+                          onChange={(e) => updateCart(product.id, e)}
+                        >
+                          <NumberInputField />
+                          <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                          </NumberInputStepper>
+                        </NumberInput>
+
+                        <Box
+                          display="flex"
+                          flexDirection="column"
+                          justifyContent="center"
+                          alignItems="center"
+                        >
+                          <Text
+                            fontSize={{ base: "sm", md: "md" }}
+                            fontWeight="bold"
+                          >
+                            Total
+                          </Text>
+                          <Text fontSize={{ base: "sm", md: "md" }}>
+                            $ {total}
+                          </Text>
+                        </Box>
                       </Box>
                       <Button
                         onClick={() => removeById(product.id)}
+                        size="sm"
                         colorScheme="red"
                         alignSelf="center"
                       >
@@ -269,7 +299,7 @@ const Cart = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </>
+    </Box>
   );
 };
 

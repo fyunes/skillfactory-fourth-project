@@ -14,7 +14,7 @@ const App = () => {
   return (
     <Box
       className="App"
-      maxW="100vw"
+      w="100vw"
       minH="100vh"
       bg="linear-gradient(to top, #f7faff, #f7faff, #f6faff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff, #ffffff)"
       fontFamily={`'Lato', 'sans-serif'`}
